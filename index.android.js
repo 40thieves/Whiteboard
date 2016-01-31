@@ -1,4 +1,16 @@
-import React, { AppRegistry, Component, PropTypes, DrawerLayoutAndroid, Navigator, View } from 'react-native';
+import React, {
+	AppRegistry,
+	Component,
+	PropTypes,
+	AsyncStorage,
+	DrawerLayoutAndroid,
+	Navigator,
+	View,
+	Text
+} from 'react-native';
+
+import { getCredentials } from './src/Auth/api'
+import LogIn from './src/Auth/LogIn'
 
 import NavDrawer from './src/Navigation/NavDrawer'
 import Router from './src/Navigation/Router'
@@ -14,7 +26,17 @@ class Whiteboard extends Component {
 	constructor(props) {
 		super(props)
 
-		this.state = { drawer: null, navigator: null }
+		this.state = {
+			drawer: null,
+			navigator: null,
+			username: null
+		}
+	}
+
+	async componentDidMount() {
+		const credentials = await getCredientials()
+
+		this.setState({ username: credentials.username })
 	}
 
 	getChildContext = () => {
@@ -35,6 +57,19 @@ class Whiteboard extends Component {
 	};
 
 	render() {
+		const { username } = this.state
+
+		if (username)
+			return this.renderNavigation()
+		else
+			return <LogIn onLogin={this.login} />
+	}
+
+	login = () => {
+		console.log('Logged in');
+	};
+
+	renderNavigation = () => {
 		const { drawer, navigator } = this.state
 
 		return (
@@ -73,7 +108,7 @@ class Whiteboard extends Component {
 				/>}
 			</DrawerLayoutAndroid>
 		)
-	}
+	};
 
 }
 
