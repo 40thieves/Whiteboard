@@ -21,7 +21,7 @@ const request = async (method, url, opts = BASE_OPTS) => {
 
 	const json = await response.json()
 
-	if (response.state >= 400) {
+	if (response.status >= 400) {
 		throw error(json)
 	}
 
