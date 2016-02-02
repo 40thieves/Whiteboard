@@ -60,7 +60,8 @@ const styles = {
 		alignItems: 'center'
 	},
 	item: {
-		marginHorizontal: 20
+		marginHorizontal: 20,
+		marginTop: 10
 	},
 	text: {
 		fontSize: 16
