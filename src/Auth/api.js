@@ -11,16 +11,12 @@ export const getCredentials = async () => {
 }
 
 export const logIn = async (username, password, otp) => {
-	console.log(username, password, otp);
-
-	const foo = await makeToken(username, password, otp)
-
-	console.log(foo);
-
-	// get token from response
+	const token = (await makeToken(username, password, otp)).token
 
 	await AsyncStorage.setItem('GITHUB_USERNAME', username)
-	// await AsyncStorage.setItem('GITHUB_ACCESS_TOKEN', token)
+	await AsyncStorage.setItem('GITHUB_ACCESS_TOKEN', token)
+
+	return { username, token }
 }
 
 const makeToken = async (username, password, otp) => {

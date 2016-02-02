@@ -47,8 +47,11 @@ export default class LogIn extends Component {
 		)
 	}
 
-	login = () => {
-		logIn(this.state.username, this.state.password, this.state.otp)
+	login = async () => {
+		// TODO: Error handling - wrap in try/catch
+		const username = (await logIn(this.state.username, this.state.password, this.state.otp)).username
+
+		this.props.onLogin(username)
 	};
 
 }

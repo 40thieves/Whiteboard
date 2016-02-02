@@ -65,8 +65,8 @@ class Whiteboard extends Component {
 			return <LogIn onLogin={this.login} />
 	}
 
-	login = () => {
-		console.log('Logged in');
+	login = (username) => {
+		this.setState({ username })
 	};
 
 	renderNavigation = () => {
